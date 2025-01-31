@@ -22,8 +22,15 @@ class BackEnd():
             Confirma_Senha TEXT NOT NULL               
         );
         """)
+def cadastro_usuario(self):
+        self.nome=self.user_entry.get()
+        self.email=self.email_entry.get()
+        self.senha=self.senha_entry.get()
+        self.confirma_senha=self.c_senha_entry.get()
 
-class App(ctk.CTk):
+        print(self.nome)
+
+class App(ctk.CTk, BackEnd):
     def __init__(self):
         super().__init__()
         
