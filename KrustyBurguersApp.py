@@ -1,5 +1,27 @@
 #Krusty's App
 import customtkinter as ctk
+import sqlite3 as sql
+
+#criação do banco de dados
+class BackEnd():
+    def conecta_banco(self):
+        self.conn = sql.connect("KrustyBurguer.db")
+        self.cursor = self.conn.cursor()
+        print("Conectado ao banco de dados")
+    def desconecta_banco(self):
+        self.conn.close()
+        print("Desconectado ao banco de dados")
+    def cria_tabela(self):
+        self.conecta_banco()
+        self.cursor.execute("""
+        CREATE TABLE IF NOT EXISTS Usuários (
+            Id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+            Nome TEXT NOT NULL,
+            Email TEXT NOT NULL,
+            Senha TEXT NOT NULL,
+            Confirma_Senha TEXT NOT NULL               
+        );
+        """)
 
 class App(ctk.CTk):
     def __init__(self):
@@ -35,7 +57,7 @@ class App(ctk.CTk):
         self.lembrar_check = ctk.CTkCheckBox(self.frame_login, checkbox_width=20, checkbox_height=20, text="Lembrar de mim", font=("Arial", 14)).place(x=45, y=270)
 
         self.login_button = ctk.CTkButton(self.frame_login, text="Login", width=200, height=30, font=("Arial", 14)).place(x=65, y= 310)
-
+        
     #tela de registro
         def cadastro():
 
