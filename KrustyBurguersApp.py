@@ -1,7 +1,28 @@
 #Krusty's App
 import customtkinter as ctk
+import sqlite3 as sql
 
-class App(ctk.CTk):
+class BackEnd():
+    def conecta_banco(self):
+        self.conn = sql.connect("KrustyBurguer.db")
+        self.cursor = self.conn.cursor()
+        print("Conectado ao banco de dados")
+    def desconecta_banco(self):
+        self.conn.close()
+        print("Desconectado ao banco de dados")
+    def cria_tabela(self):
+        self.conecta_banco()
+        self.cursor.execute("""
+        CREATE TABLE IF NOT EXISTS Usuários (
+            Id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+            Nome TEXT NOT NULL,
+            Email TEXT NOT NULL,
+            Senha TEXT NOT NULL,
+            Confirma_Senha TEXT NOT NULL               
+        );
+        """)
+
+class App(ctk.CTk, BackEnd):
     def __init__(self):
         super().__init__()
         
