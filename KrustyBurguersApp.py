@@ -22,7 +22,7 @@ class BackEnd():
             Confirma_Senha TEXT NOT NULL               
         );
         """)
-def cadastro_usuario(self):
+    def cadastro_usuario(self):
         self.nome=self.user_entry.get()
         self.email=self.email_entry.get()
         self.senha=self.senha_entry.get()
@@ -51,23 +51,32 @@ class App(ctk.CTk, BackEnd):
         self.frame_login.pack(side = "top", expand = True, fill = "y")
 
         #login frames widgets
-        self.login_label = ctk.CTkLabel(self.frame_login, text="Welcome to Krusty's App", text_color= "blue", font=("Arial", 20)).place(x=50, y=50)
+        self.login_label = ctk.CTkLabel(self.frame_login, text="Welcome to Krusty's App", text_color= "blue", font=("Arial", 20))
+        self.login_label.place(x=50, y=50)
 
-        self.usuario_entry = ctk.CTkEntry(self.frame_login, placeholder_text="Usuario", width=250, height= 35, font=("Arial", 14)).place(x=40, y=150)
+        self.usuario_entry = ctk.CTkEntry(self.frame_login, placeholder_text="Usuario", width=250, height= 35, font=("Arial", 14))
+        self.usuario_entry.place(x=40, y=150)
 
-        self.usuario_label = ctk.CTkLabel(self.frame_login, text="*Campo obrigatório", height=0,text_color="blue", font=("Arial", 10)).place(x=45, y=188)
+        self.usuario_label = ctk.CTkLabel(self.frame_login, text="*Campo obrigatório", height=0,text_color="blue", font=("Arial", 10))
+        self.usuario_label.place(x=45, y=188)
 
-        self.senha_entry = ctk.CTkEntry(self.frame_login, placeholder_text="Senha", width=250, height= 35, font=("Arial", 14), show = "*").place(x=40, y=205)
+        self.senha_entry = ctk.CTkEntry(self.frame_login, placeholder_text="Senha", width=250, height= 35, font=("Arial", 14), show = "*")
+        self.senha_entry.place(x=40, y=205)
 
-        self.senha_label = ctk.CTkLabel(self.frame_login, text="*Campo obrigatório", height=0,text_color="blue", font=("Arial", 10)).place(x=45, y=243)
+        self.senha_label = ctk.CTkLabel(self.frame_login, text="*Campo obrigatório", height=0,text_color="blue", font=("Arial", 10))
+        self.senha_label.place(x=45, y=243)
 
-        self.lembrar_check = ctk.CTkCheckBox(self.frame_login, checkbox_width=20, checkbox_height=20, text="Lembrar de mim", font=("Arial", 14)).place(x=45, y=270)
+        self.lembrar_check = ctk.CTkCheckBox(self.frame_login, checkbox_width=20, checkbox_height=20, text="Lembrar de mim", font=("Arial", 14))
+        self.lembrar_check.place(x=45, y=270)
 
-        self.login_button = ctk.CTkButton(self.frame_login, text="Login", width=200, height=30, font=("Arial", 14)).place(x=65, y= 310)
+        self.login_button = ctk.CTkButton(self.frame_login, text="Login", width=200, height=30, font=("Arial", 14))
+        self.login_button.place(x=65, y= 310)
 
-        self.cadastro_button = ctk.CTkButton(self.frame_login, text="Cadastre-se", width=200, height=30, font=("Arial", 14), command=self.cadastro).place(x=65, y= 350)
+        self.cadastro_button = ctk.CTkButton(self.frame_login, text="Cadastre-se", width=200, height=30, font=("Arial", 14), command=self.cadastro)
+        self.cadastro_button.place(x=65, y= 350)
 
-        self.esqueceu_button = ctk.CTkButton(self.frame_login, text="Esqueceu sua senha?", width=200, height=30, font=("Arial", 14), command = self.esqueceu_senha).place(x=65, y= 390)
+        self.esqueceu_button = ctk.CTkButton(self.frame_login, text="Esqueceu sua senha?", width=200, height=30, font=("Arial", 14), command = self.esqueceu_senha)
+        self.esqueceu_button.place(x=65, y= 390)
 
     #tela de registro
     def cadastro(self):
@@ -86,30 +95,40 @@ class App(ctk.CTk, BackEnd):
         self.frame_cadastro = ctk.CTkFrame(self, fg_color=["white","grey"], width=350, height=600)
         self.frame_cadastro.pack(side = "top", expand = True, fill = "y")
             
-        self.cadastro_label = ctk.CTkLabel(self.frame_cadastro, text="Welcome to Krusty's App", text_color= "blue", font=("Arial", 20)).place(x=50, y=50)
+        self.cadastro_label = ctk.CTkLabel(self.frame_cadastro, text="Welcome to Krusty's App", text_color= "blue", font=("Arial", 20))
+        self.cadastro_label.place(x=50, y=50)
 
-        self.email_entry = ctk.CTkEntry(self.frame_cadastro, placeholder_text="Insira seu e-mail", width=250, height= 35, font=("Arial", 14)).place(x=40, y=150)
+        self.email_entry = ctk.CTkEntry(self.frame_cadastro, placeholder_text="Insira seu e-mail", width=250, height= 35, font=("Arial", 14))
+        self.email_entry.place(x=40, y=150)
 
-        self.email_label = ctk.CTkLabel(self.frame_cadastro, text="*Campo obrigatório", height=0,text_color="blue", font=("Arial", 10)).place(x=45, y=188)
+        self.email_label = ctk.CTkLabel(self.frame_cadastro, text="*Campo obrigatório", height=0,text_color="blue", font=("Arial", 10))
+        self.email_label.place(x=45, y=188)
 
-        self.user_entry = ctk.CTkEntry(self.frame_cadastro, placeholder_text="Insira o nome da Empresa", width=250, height= 35, font=("Arial", 14)).place(x=40, y=205)
+        self.user_entry = ctk.CTkEntry(self.frame_cadastro, placeholder_text="Insira o nome da Empresa", width=250, height= 35, font=("Arial", 14))
+        self.user_entry.place(x=40, y=205)
 
-        self.user_label = ctk.CTkLabel(self.frame_cadastro, text="*Campo obrigatório", height=0,text_color="blue", font=("Arial", 10)).place(x=45, y=243)
+        self.user_label = ctk.CTkLabel(self.frame_cadastro, text="*Campo obrigatório", height=0,text_color="blue", font=("Arial", 10))
+        self.user_label.place(x=45, y=243)
 
-        self.senha_entry = ctk.CTkEntry(self.frame_cadastro, placeholder_text="Senha", width=250, height= 35, font=("Arial", 14), show = "*").place(x=40, y=260)
+        self.senha_entry = ctk.CTkEntry(self.frame_cadastro, placeholder_text="Senha", width=250, height= 35, font=("Arial", 14), show = "*")
+        self.senha_entry.place(x=40, y=260)
 
-        self.senha_label = ctk.CTkLabel(self.frame_cadastro, text="*Campo obrigatório", height=0,text_color="blue", font=("Arial", 10)).place(x=45, y=300)
+        self.senha_label = ctk.CTkLabel(self.frame_cadastro, text="*Campo obrigatório", height=0,text_color="blue", font=("Arial", 10))
+        self.senha_label.place(x=45, y=300)
 
-        self.c_senha_entry = ctk.CTkEntry(self.frame_cadastro, placeholder_text="Digite novamente a senha", width=250, height= 35, font=("Arial", 14), show = "*").place(x=40, y=317)
+        self.c_senha_entry = ctk.CTkEntry(self.frame_cadastro, placeholder_text="Digite novamente a senha", width=250, height= 35, font=("Arial", 14), show = "*")
+        self.c_senha_entry.place(x=40, y=317)
 
-        self.termo_de_uso = ctk.CTkCheckBox(self.frame_cadastro, checkbox_width=20, checkbox_height=20, text="Aceito os termos de uso", font=("Arial", 14)).place(x=45, y=370)
+        self.termo_de_uso = ctk.CTkCheckBox(self.frame_cadastro, checkbox_width=20, checkbox_height=20, text="Aceito os termos de uso", font=("Arial", 14))
+        self.termo_de_uso.place(x=45, y=370)
 
-        self.confirmar_button = ctk.CTkButton(self.frame_cadastro, text="Confirmar", width=200, height=30, font=("Arial", 14)).place(x=65, y= 410)
-    
-        self.voltar_button = ctk.CTkButton(self.frame_cadastro, text="Voltar", width=150, height=25, font=("Arial", 14), command=back).place(x=90, y= 450)
-            
+        self.confirmar_button = ctk.CTkButton(self.frame_cadastro, text="Confirmar", width=200, height=30, font=("Arial", 14), command=self.cadastro_usuario)
+        self.confirmar_button.place(x=65, y= 410)  
 
-        #tela de "esqueceu sua senha?"
+        self.voltar_button = ctk.CTkButton(self.frame_cadastro, text="Voltar", width=150, height=25, font=("Arial", 14), command=back)
+        self.voltar_button.place(x=90, y= 450)    
+
+    #tela de "esqueceu sua senha?"
     def esqueceu_senha(self):
 
         def back():
@@ -125,25 +144,35 @@ class App(ctk.CTk, BackEnd):
         self.frame_esqueceu = ctk.CTkFrame(self, fg_color=["white","grey"], width=350, height=600)
         self.frame_esqueceu.pack(side = "top", expand = True, fill = "y")
 
-        self.esqueceu_label = ctk.CTkLabel(self.frame_esqueceu, text="Confirme que é você", text_color= "blue", font=("Arial", 20)).place(x=50, y=50)
+        self.esqueceu_label = ctk.CTkLabel(self.frame_esqueceu, text="Confirme que é você", text_color= "blue", font=("Arial", 20))
+        self.esqueceu_label.place(x=50, y=50)
 
-        self.email_entry = ctk.CTkEntry(self.frame_esqueceu, placeholder_text="Insira seu e-mail", width=250, height= 35, font=("Arial", 14)).place(x=40, y=150)
+        self.email_entry = ctk.CTkEntry(self.frame_esqueceu, placeholder_text="Insira seu e-mail", width=250, height= 35, font=("Arial", 14))
+        self.email_entry.place(x=40, y=150)
 
-        self.email_label = ctk.CTkLabel(self.frame_esqueceu, text="*Campo obrigatório", height=0,text_color="blue", font=("Arial", 10)).place(x=45, y=188)
+        self.email_label = ctk.CTkLabel(self.frame_esqueceu, text="*Campo obrigatório", height=0,text_color="blue", font=("Arial", 10))
+        self.email_label.place(x=45, y=188)
 
-        self.user_entry = ctk.CTkEntry(self.frame_esqueceu, placeholder_text="Insira o nome da Empresa", width=250, height= 35, font=("Arial", 14)).place(x=40, y=205)
+        self.user_entry = ctk.CTkEntry(self.frame_esqueceu, placeholder_text="Insira o nome da Empresa", width=250, height= 35, font=("Arial", 14))
+        self.user_entry.place(x=40, y=205)
 
-        self.user_label = ctk.CTkLabel(self.frame_esqueceu, text="*Campo obrigatório", height=0,text_color="blue", font=("Arial", 10)).place(x=45, y=243)
+        self.user_label = ctk.CTkLabel(self.frame_esqueceu, text="*Campo obrigatório", height=0,text_color="blue", font=("Arial", 10))
+        self.user_label.place(x=45, y=243)
 
-        self.senha_entry = ctk.CTkEntry(self.frame_esqueceu, placeholder_text="Nova senha", width=250, height= 35, font=("Arial", 14), show = "*").place(x=40, y=260)
+        self.senha_entry = ctk.CTkEntry(self.frame_esqueceu, placeholder_text="Nova senha", width=250, height= 35, font=("Arial", 14), show = "*")
+        self.senha_entry.place(x=40, y=260)
 
-        self.senha_label = ctk.CTkLabel(self.frame_esqueceu, text="*Campo obrigatório", height=0,text_color="blue", font=("Arial", 10)).place(x=45, y=300)
+        self.senha_label = ctk.CTkLabel(self.frame_esqueceu, text="*Campo obrigatório", height=0,text_color="blue", font=("Arial", 10))
+        self.senha_label.place(x=45, y=300)
 
-        self.c_senha_entry = ctk.CTkEntry(self.frame_esqueceu, placeholder_text="Confirme a nova senha", width=250, height= 35, font=("Arial", 14), show = "*").place(x=40, y=317)
+        self.c_senha_entry = ctk.CTkEntry(self.frame_esqueceu, placeholder_text="Confirme a nova senha", width=250, height= 35, font=("Arial", 14), show = "*")
+        self.c_senha_entry.place(x=40, y=317)
 
-        self.confirmar_button = ctk.CTkButton(self.frame_esqueceu, text="Confirmar", width=200, height=30, font=("Arial", 14)).place(x=65, y= 370)
-    
-        self.voltar_button = ctk.CTkButton(self.frame_esqueceu, text="Voltar", width=150, height=25, font=("Arial", 14), command = back).place(x=90, y= 410)
+        self.confirmar_button = ctk.CTkButton(self.frame_esqueceu, text="Confirmar", width=200, height=30, font=("Arial", 14))
+        self.confirmar_button.place(x=65, y= 370)
+
+        self.voltar_button = ctk.CTkButton(self.frame_esqueceu, text="Voltar", width=150, height=25, font=("Arial", 14), command = back)
+        self.voltar_button.place(x=90, y= 410)
 
 if __name__ == "__main__":    
     app = App()
