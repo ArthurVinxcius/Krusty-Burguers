@@ -55,6 +55,14 @@ class BackEnd():
                 self.desconecta_banco()
         except:
             messagebox.showerror(title="CADASTRO", message="Não foi possível coletar seus dados.\nTente novamente.")
+            self.desconecta_banco()
+
+    def verifica_login(self):
+        self.usuario=self.usuario_entry.get()
+        self.senha=self.senha_entry.get()
+
+        print(self.usuario, self.senha)
+
         
 class App(ctk.CTk, BackEnd):
     def __init__(self):
@@ -96,7 +104,7 @@ class App(ctk.CTk, BackEnd):
         self.lembrar_check = ctk.CTkCheckBox(self.frame_login, checkbox_width=20, checkbox_height=20, text="Lembrar de mim", font=("Arial", 14))
         self.lembrar_check.place(x=45, y=270)
 
-        self.login_button = ctk.CTkButton(self.frame_login, text="Login", width=200, height=30, font=("Arial", 14))
+        self.login_button = ctk.CTkButton(self.frame_login, text="Login", width=200, height=30, font=("Arial", 14), command=self.verifica_login)
         self.login_button.place(x=65, y= 310)
 
         self.cadastro_button = ctk.CTkButton(self.frame_login, text="Cadastre-se", width=200, height=30, font=("Arial", 14), command=self.cadastro)
