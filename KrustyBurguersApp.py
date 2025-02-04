@@ -1,16 +1,21 @@
 #Krusty's App
 import customtkinter as ctk
 import sqlite3 as sql
+from tkinter import *
+from tkinter import messagebox
 
-#criação do banco de dados
+#banco de dados
 class BackEnd():
+    #função que conecta ao banco de dados
     def conecta_banco(self):
         self.conn = sql.connect("KrustyBurguer.db")
         self.cursor = self.conn.cursor()
         print("Conectado ao banco de dados")
+    #função que desconecta ao banco de dados
     def desconecta_banco(self):
         self.conn.close()
         print("Desconectado ao banco de dados")
+    #função que cria a tabela de Usuários
     def cria_tabela(self):
         self.conecta_banco()
         self.cursor.execute("""
@@ -22,21 +27,43 @@ class BackEnd():
             Confirma_Senha TEXT NOT NULL               
         );
         """)
+        self.conn.commit()
+        self.desconecta_banco()
+    #função de cadastro de usuários
     def cadastro_usuario(self):
         self.nome=self.user_entry.get()
         self.email=self.email_entry.get()
         self.senha=self.senha_entry.get()
         self.confirma_senha=self.c_senha_entry.get()
 
-        print(self.nome)
+        self.conecta_banco()
 
+        self.cursor.execute("""
+        INSERT INTO Usuários (Nome, Email, Senha, Confirma_Senha) VALUES (?,?,?,?)
+        """, (self.nome, self.email, self.senha, self.confirma_senha))
+        
+        try:
+            if (self.nome=="" or self.email=="" or self.senha=="" or self.confirma_senha==""):
+                messagebox.showerror(title="CADASTRO", message="Nem todos os campos foram preenchidos.")
+            elif (self.senha!=self.confirma_senha):
+                messagebox.showerror(title="CADASTRO", message="Coloque senhas iguais.")
+            elif (len(self.senha)<8):
+                messagebox.showerror(title="CADASTRO", message="A senha deve ter 8 caracteres.")
+            else:
+                self.conn.commit()
+                messagebox.showinfo(title="CADASTRO", message=f"Cadastro de {self.nome} concluído com sucesso!")
+                self.desconecta_banco()
+        except:
+            messagebox.showerror(title="CADASTRO", message="Não foi possível coletar seus dados.\nTente novamente.")
+        
 class App(ctk.CTk, BackEnd):
     def __init__(self):
         super().__init__()
         
         self.config_tela()
         self.login() #dentro da função login temos as chamadas para as funções de cadastro e esqueceu_senha então não é necessário chamar essas funções aqui
-        
+        self.cria_tabela()
+
     #configuração da tela
     def config_tela(self):
         
