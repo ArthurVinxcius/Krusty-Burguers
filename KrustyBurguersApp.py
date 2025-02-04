@@ -31,6 +31,13 @@ class BackEnd():
         self.desconecta_banco()
     #função de cadastro de usuários
     def cadastro_usuario(self):
+        def back():
+            #Remover frame de cadastro
+            self.frame_cadastro.pack_forget()
+            
+            #Retornar para a tela de login
+            self.frame_login.pack(side = "top", expand = True, fill = "y")   
+
         self.nome=self.user_entry.get()
         self.email=self.email_entry.get()
         self.senha=self.senha_entry.get()
@@ -57,6 +64,9 @@ class BackEnd():
             messagebox.showerror(title="CADASTRO", message="Não foi possível coletar seus dados.\nTente novamente.")
             self.desconecta_banco()
 
+        back()
+
+
     #função de login
     def verifica_login(self):
         self.nome=self.usuario_entry.get()
@@ -64,9 +74,10 @@ class BackEnd():
 
         self.conecta_banco()
 
-        self.cursor.execute("""SELECT * FROM Usuários WHERE (Nome =?, Senha =?)""",
-        (self.nome, self.senha))
-
+        self.cursor.execute("""
+        SELECT * FROM Usuários WHERE (Nome=? AND Senha=?)
+        """, (self.nome, self.senha))
+        
         self.verifica_dados=self.cursor.fetchone()
 
         try:
