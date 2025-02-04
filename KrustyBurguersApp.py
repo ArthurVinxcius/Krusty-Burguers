@@ -57,12 +57,24 @@ class BackEnd():
             messagebox.showerror(title="CADASTRO", message="Não foi possível coletar seus dados.\nTente novamente.")
             self.desconecta_banco()
 
+    #função de login
     def verifica_login(self):
-        self.usuario=self.usuario_entry.get()
+        self.nome=self.usuario_entry.get()
         self.senha=self.senha_entry.get()
 
-        print(self.usuario, self.senha)
+        self.conecta_banco()
 
+        self.cursor.execute("""SELECT * FROM Usuários WHERE (Nome =?, Senha =?)""",
+        (self.nome, self.senha))
+
+        self.verifica_dados=self.cursor.fetchone()
+
+        try:
+            if(self.nome in self.verifica_dados and self.senha in self.verifica_dados):
+                messagebox.showinfo(title="LOGIN", message="Login realizado com sucesso!")
+                self.desconecta_banco()
+        except:
+            messagebox.showerror(title="LOGIN", message="Usuário ou senha incorretos.")
         
 class App(ctk.CTk, BackEnd):
     def __init__(self):
