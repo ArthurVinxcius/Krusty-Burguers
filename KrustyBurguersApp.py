@@ -86,6 +86,44 @@ class BackEnd():
                 self.desconecta_banco()
         except:
             messagebox.showerror(title="LOGIN", message="Usuário ou senha incorretos.")
+    
+    def troca_de_senha(self):
+        def back():
+            #Remover frame de esqueceu
+            self.frame_esqueceu.pack_forget()
+            
+            #Retornar para a tela de login
+            self.frame_login.pack(side = "top", expand = True, fill = "y")
+
+        self.nome=self.user_entry.get()
+        self.email=self.email_entry.get()
+        self.senha=self.senha_entry.get()
+        self.confirma_senha=self.c_senha_entry.get()
+
+        self.conecta_banco()
+        self.cursor.execute("""
+        SELECT * FROM Usuários WHERE (Nome=? AND Email=?)
+        """, (self.nome, self.email))
+
+        self.verifica_dados=self.cursor.fetchone()
+       
+        try:
+            if(self.nome in self.verifica_dados and self.email in self.verifica_dados):
+                self.cursor.execute("""
+                UPDATE Usuários SET (Senha=? AND Confirma_Senha=?) WHERE Nome=?""", (self.senha, self.confirma_senha, self.nome))
+                self.conn.commit()
+                messagebox.showinfo(title="TROCA DE SENHA", message="Troca de senha realizada com sucesso!")
+                self.desconecta_banco()
+            else:
+                messagebox.showerror(title="TROCA DE SENHA", message="Usuário não encontrado")
+            if (self.senha!=self.confirma_senha):
+                messagebox.showerror(title="TROCA DE SENHA", message="Coloque senhas iguais.")
+            if (len(self.senha)<8):
+                messagebox.showerror(title="TROCA DE SENHA", messagebox="Coloque uma senha com maios de 8 caracteres.")
+        except:
+            messagebox.showerror(title="TROCA DE SENHA", messagebox="Não foi possível trocar a sua senha.\nTente novamente.")
+
+        back()
         
 class App(ctk.CTk, BackEnd):
     def __init__(self):
@@ -226,7 +264,7 @@ class App(ctk.CTk, BackEnd):
         self.c_senha_entry = ctk.CTkEntry(self.frame_esqueceu, placeholder_text="Confirme a nova senha", width=250, height= 35, font=("Arial", 14), show = "*")
         self.c_senha_entry.place(x=40, y=317)
 
-        self.confirmar_button = ctk.CTkButton(self.frame_esqueceu, text="Confirmar", width=200, height=30, font=("Arial", 14))
+        self.confirmar_button = ctk.CTkButton(self.frame_esqueceu, text="Confirmar", width=200, height=30, font=("Arial", 14), command=self.troca_de_senha)
         self.confirmar_button.place(x=65, y= 370)
 
         self.voltar_button = ctk.CTkButton(self.frame_esqueceu, text="Voltar", width=150, height=25, font=("Arial", 14), command = back)
