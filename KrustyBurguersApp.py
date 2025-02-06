@@ -2,7 +2,7 @@
 import customtkinter as ctk
 import sqlite3 as sql
 from tkinter import *
-from tkinter import messagebox
+from tkinter import messagebox 
 
 #banco de dados
 class BackEnd():
@@ -138,13 +138,20 @@ class App(ctk.CTk, BackEnd):
         
         self.geometry("800x600")
         self.title("Krusty's App")
+        self.iconbitmap("Krusty.ico")
+        self.resizable(False, False)
 
     #tela de login
     def login(self):
 
+        #Background
+        self.img = PhotoImage(file="background.png", height= 800, width= 600)
+        self.background = ctk.CTkLabel(self, image=self.img)
+        self.background.pack(side = "left", expand = True, fill = "both")
+
         #login frame
         self.frame_login = ctk.CTkFrame(self, fg_color=["white","grey"], width=350, height=600)
-        self.frame_login.pack(side = "top", expand = True, fill = "y")
+        self.frame_login.pack(side = "right")
 
         #login frames widgets
         self.login_label = ctk.CTkLabel(self.frame_login, text="Welcome to Krusty's App", text_color= "blue", font=("Arial", 20))
