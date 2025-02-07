@@ -2,7 +2,8 @@
 import customtkinter as ctk
 import sqlite3 as sql
 from tkinter import *
-from tkinter import messagebox 
+from tkinter import messagebox, PhotoImage
+from PIL import Image
 
 #banco de dados
 class BackEnd():
@@ -140,46 +141,54 @@ class App(ctk.CTk, BackEnd):
         self.title("Krusty's App")
         self.iconbitmap("Krusty.ico")
         self.resizable(False, False)
+        
 
     #tela de login
     def login(self):
 
         #Background
-        self.img = PhotoImage(file="background.png", height= 800, width= 600)
-        self.background = ctk.CTkLabel(self, image=self.img)
-        self.background.pack(side = "left", expand = True, fill = "both")
+        self.img = ctk.CTkImage(light_image = Image.open("f_background.png"), dark_image= Image.open("f_background.png"), size=(800,600))
+        self.background = ctk.CTkLabel(self, image=self.img, text= None).place(x = 0, y = 0)
+        '''self.img = PhotoImage(file="background1.png")
+        self.background = ctk.CTkLabel(self, image=self.img, text = None)
+        self.background.place(x=0, y=0)'''
+        '''self.logomarca = ctk.CTkImage(light_image= Image.open("logomarca3.png"), dark_image = Image.open("logomarca3.png"), size = (250, 250))
+        self.logomarca = ctk.CTkLabel(self.background, image=self.logomarca, text=None, width=100,bg_color="transparent", height=100).place(x=(600-350)/2, y=150)'''
+
 
         #login frame
-        self.frame_login = ctk.CTkFrame(self, fg_color=["white","grey"], width=350, height=600)
+        self.frame_login = ctk.CTkFrame(self, fg_color=["#FDFDFD","#0D0D0D"], width=350, height=600)
         self.frame_login.pack(side = "right")
 
         #login frames widgets
         self.login_label = ctk.CTkLabel(self.frame_login, text="Welcome to Krusty's App", text_color= "blue", font=("Arial", 20))
         self.login_label.place(x=50, y=50)
+        
+        self.usuario_entry = ctk.CTkEntry(self.frame_login, placeholder_text_color=None, width=250, height= 35, font=("Arial", 14)) #tentar colocar width=1 com a imagem pra testar se da certo
+        self.usuario_entry.place(relx=0.5, y=241.3, anchor = "center")
 
-        self.usuario_entry = ctk.CTkEntry(self.frame_login, placeholder_text="Usuario", width=250, height= 35, font=("Arial", 14))
-        self.usuario_entry.place(x=40, y=150)
-
-        self.usuario_label = ctk.CTkLabel(self.frame_login, text="*Campo obrigatório", height=0,text_color="blue", font=("Arial", 10))
-        self.usuario_label.place(x=45, y=188)
+        '''self.usuario_label = ctk.CTkLabel(self.frame_login, text="*Campo obrigatório", height=0,text_color="blue", font=("Arial", 10))
+        self.usuario_label.place(x=45, y=188)'''
 
         self.senha_entry = ctk.CTkEntry(self.frame_login, placeholder_text="Senha", width=250, height= 35, font=("Arial", 14), show = "*")
-        self.senha_entry.place(x=40, y=205)
+        self.senha_entry.place(relx = 0.5, y=314.86, anchor = "center")
 
-        self.senha_label = ctk.CTkLabel(self.frame_login, text="*Campo obrigatório", height=0,text_color="blue", font=("Arial", 10))
-        self.senha_label.place(x=45, y=243)
+        '''self.senha_label = ctk.CTkLabel(self.frame_login, text="*Campo obrigatório", height=0,text_color="blue", font=("Arial", 10))
+        self.senha_label.place(x=45, y=243)'''
 
-        self.lembrar_check = ctk.CTkCheckBox(self.frame_login, checkbox_width=20, checkbox_height=20, text="Lembrar de mim", font=("Arial", 14))
-        self.lembrar_check.place(x=45, y=270)
+        self.lembrar_check = ctk.CTkCheckBox(self.frame_login, checkbox_width=12.36, checkbox_height=12.36, border_color = "#9C00D4", border_width= 1.35, corner_radius= 2, checkmark_color="#9C00D4", text="Manter usuário", text_color= "#9C00D4", fg_color=["#FDFDFD","#0D0D0D"], hover = False, font=("Sometype Mono SemiBold", 12.26))
+        self.lembrar_check.place(x=37.5, y=364.49)
 
-        self.login_button = ctk.CTkButton(self.frame_login, text="Login", width=200, height=30, font=("Arial", 14), command=self.verifica_login)
-        self.login_button.place(x=65, y= 310)
+        self.login_button = ctk.CTkButton(self.frame_login, text="Login", width=1, height=1, font=("Arial", 14), command=self.verifica_login)
+        self.login_button.place(relx = 0.5, y= 452.86, anchor = "center")
 
-        self.cadastro_button = ctk.CTkButton(self.frame_login, text="Cadastre-se", width=200, height=30, font=("Arial", 14), command=self.cadastro)
-        self.cadastro_button.place(x=65, y= 350)
+        self.cadastro_button = ctk.CTkButton(self.frame_login, text="CADASTRE-SE", text_color= "#9C00D4", fg_color=["#FDFDFD","#0D0D0D"], width=1, height=1, hover = False, font=("Sometype Mono Bold", 10.21), command=self.cadastro)
+        self.cadastro_button.place(relx=0.5, y= 511.46, anchor = "center")
 
-        self.esqueceu_button = ctk.CTkButton(self.frame_login, text="Esqueceu sua senha?", width=200, height=30, font=("Arial", 14), command = self.esqueceu_senha)
-        self.esqueceu_button.place(x=65, y= 390)
+        self.esqueceu_button = ctk.CTkButton(self.frame_login, text="Esqueceu sua senha?",text_color= "#9C00D4", fg_color=["#FDFDFD","#0D0D0D"], width=1, height=1, hover = False, font=("Sometype Mono SemiBold", 12.26), command = self.esqueceu_senha)
+        self.esqueceu_button.place(x=185.48, y= 364.49)
+
+        self.creditos = ctk.CTkLabel(self.frame_login, text="Development by ArthurVinxcius and isjustjefferson", text_color= "#9C00D4", font=("Sometype Mono Bold", 10.21)).place(relx = 0.5, y= 578.37, anchor = "center")
 
     #tela de registro
     def cadastro(self):
@@ -189,14 +198,14 @@ class App(ctk.CTk, BackEnd):
             self.frame_cadastro.pack_forget()
             
             #Retornar para a tela de login
-            self.frame_login.pack(side = "top", expand = True, fill = "y")   
+            self.frame_login.pack(side = "right")   
 
         #removendo login frame
         self.frame_login.pack_forget()
 
         #cadastro frame
-        self.frame_cadastro = ctk.CTkFrame(self, fg_color=["white","grey"], width=350, height=600)
-        self.frame_cadastro.pack(side = "top", expand = True, fill = "y")
+        self.frame_cadastro = ctk.CTkFrame(self, fg_color=["#FDFDFD","#0D0D0D"], width=350, height=600)
+        self.frame_cadastro.pack(side = "right")
             
         self.cadastro_label = ctk.CTkLabel(self.frame_cadastro, text="Welcome to Krusty's App", text_color= "blue", font=("Arial", 20))
         self.cadastro_label.place(x=50, y=50)
@@ -239,13 +248,13 @@ class App(ctk.CTk, BackEnd):
             self.frame_esqueceu.pack_forget()
             
             #Retornar para a tela de login
-            self.frame_login.pack(side = "top", expand = True, fill = "y")
+            self.frame_login.pack(side = "right")
 
         self.frame_login.pack_forget()
 
         #esqueceu frame
-        self.frame_esqueceu = ctk.CTkFrame(self, fg_color=["white","grey"], width=350, height=600)
-        self.frame_esqueceu.pack(side = "top", expand = True, fill = "y")
+        self.frame_esqueceu = ctk.CTkFrame(self, fg_color=["#FDFDFD","#0D0D0D"], width=350, height=600)
+        self.frame_esqueceu.pack(side = "right")
 
         self.esqueceu_label = ctk.CTkLabel(self.frame_esqueceu, text="Confirme que é você", text_color= "blue", font=("Arial", 20))
         self.esqueceu_label.place(x=50, y=50)
