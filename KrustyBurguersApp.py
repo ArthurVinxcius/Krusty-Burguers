@@ -14,6 +14,7 @@ class BackEnd():
         print("Conectado ao banco de dados")
     #função que desconecta ao banco de dados
     def desconecta_banco(self):
+        self.cursor.close()
         self.conn.close()
         print("Desconectado ao banco de dados")
     #função que cria a tabela de Usuários
@@ -30,6 +31,7 @@ class BackEnd():
         """)
         self.conn.commit()
         self.desconecta_banco()
+    
     #função de cadastro de usuários
     def cadastro_usuario(self):
         def back():
@@ -37,8 +39,14 @@ class BackEnd():
             self.frame_cadastro.pack_forget()
             
             #Retornar para a tela de login
-            self.frame_login.pack(side = "top", expand = True, fill = "y")   
-
+            self.frame_login.pack(side = "top", expand = True, fill = "y")
+        
+        def limpa_entry():
+            self.user_entry.delete(0, END)
+            self.email_entry.delete(0, END)
+            self.senha_entry.delete(0, END)
+            self.c_senha_entry.delete(0, END)
+        
         self.nome=self.user_entry.get()
         self.email=self.email_entry.get()
         self.senha=self.senha_entry.get()
@@ -49,8 +57,16 @@ class BackEnd():
         self.cursor.execute("""
         INSERT INTO Usuários (Nome, Email, Senha, Confirma_Senha) VALUES (?,?,?,?)
         """, (self.nome, self.email, self.senha, self.confirma_senha))
+
+        self.cursor.execute("""
+        SELECT * FROM Usuários WHERE (Nome=? AND Senha=?)
+        """, (self.nome, self.senha))
+        
+        self.verifica_dados=self.cursor.fetchone()
         
         try:
+            if(self.nome in self.verifica_dados or self.senha in self.verifica_dados):
+                messagebox.showerror(title="CADASTRO", message="Nome e Email já existentes.")
             if (self.nome=="" or self.email=="" or self.senha=="" or self.confirma_senha==""):
                 messagebox.showerror(title="CADASTRO", message="Nem todos os campos foram preenchidos.")
             elif (self.senha!=self.confirma_senha):
@@ -61,15 +77,17 @@ class BackEnd():
                 self.conn.commit()
                 messagebox.showinfo(title="CADASTRO", message=f"Cadastro de {self.nome} concluído com sucesso!")
                 self.desconecta_banco()
+                back()
         except:
             messagebox.showerror(title="CADASTRO", message="Não foi possível coletar seus dados.\nTente novamente.")
-            self.desconecta_banco()
-
-        back()
-
+            limpa_entry()    
 
     #função de login
     def verifica_login(self):
+        def limpa_entry():
+            self.usuario_entry.delete(0, END)
+            self.senha_entry.delete(0, END)
+        
         self.nome=self.usuario_entry.get()
         self.senha=self.senha_entry.get()
 
@@ -87,6 +105,9 @@ class BackEnd():
                 self.desconecta_banco()
         except:
             messagebox.showerror(title="LOGIN", message="Usuário ou senha incorretos.")
+            self.desconecta_banco()
+        
+        limpa_entry()
     
     def troca_de_senha(self):
         def back():
@@ -95,6 +116,11 @@ class BackEnd():
             
             #Retornar para a tela de login
             self.frame_login.pack(side = "top", expand = True, fill = "y")
+        def limpa_entry():
+            self.user_entry.delete(0, END)
+            self.email_entry.delete(0, END)
+            self.senha_entry.delete(0, END)
+            self.c_senha_entry.delte(0, END)
 
         self.nome=self.user_entry.get()
         self.email=self.email_entry.get()
@@ -105,27 +131,33 @@ class BackEnd():
         self.cursor.execute("""
         SELECT * FROM Usuários WHERE (Nome=? AND Email=?)
         """, (self.nome, self.email))
-
         self.verifica_dados=self.cursor.fetchone()
        
         try:
-            if(self.nome in self.verifica_dados and self.email in self.verifica_dados):
+            if (self.nome=="" or self.email=="" or self.senha=="" or self.confirma_senha==""):
+                messagebox.showerror(title="TROCA DE SENHA", message="Nem todos os campos foram preenchidos.")
+                self.desconecta_banco()
+            elif(self.verifica_dados==None):
+                messagebox.showerror(title="TROCA DE SENHA", message="Usuário não encontrado")
+                self.desconecta_banco()
+            elif (self.senha!=self.confirma_senha):
+                messagebox.showerror(title="TROCA DE SENHA", message="Coloque senhas iguais.")
+                self.desconecta_banco()
+            elif (len(self.senha)<8):
+                messagebox.showerror(title="TROCA DE SENHA", messagebox="Coloque uma senha com maios de 8 caracteres.")
+                self.desconecta_banco()
+            elif(self.nome in self.verifica_dados and self.email in self.verifica_dados):
                 self.cursor.execute("""
-                UPDATE Usuários SET (Senha=? AND Confirma_Senha=?) WHERE Nome=?""", (self.senha, self.confirma_senha, self.nome))
+                UPDATE Usuários SET Senha=?, Confirma_Senha=? WHERE Nome=?""", (self.senha, self.confirma_senha, self.nome))
                 self.conn.commit()
                 messagebox.showinfo(title="TROCA DE SENHA", message="Troca de senha realizada com sucesso!")
                 self.desconecta_banco()
-            else:
-                messagebox.showerror(title="TROCA DE SENHA", message="Usuário não encontrado")
-            if (self.senha!=self.confirma_senha):
-                messagebox.showerror(title="TROCA DE SENHA", message="Coloque senhas iguais.")
-            if (len(self.senha)<8):
-                messagebox.showerror(title="TROCA DE SENHA", messagebox="Coloque uma senha com maios de 8 caracteres.")
+                back()
         except:
             messagebox.showerror(title="TROCA DE SENHA", messagebox="Não foi possível trocar a sua senha.\nTente novamente.")
+            self.desconecta_banco()
+            limpa_entry()
 
-        back()
-        
 class App(ctk.CTk, BackEnd):
     def __init__(self):
         super().__init__()
@@ -145,7 +177,7 @@ class App(ctk.CTk, BackEnd):
 
     #tela de login
     def login(self):
-
+        
         #Background
         self.img = ctk.CTkImage(light_image = Image.open("f_background.png"), dark_image= Image.open("f_background.png"), size=(800,600))
         self.background = ctk.CTkLabel(self, image=self.img, text= None).place(x = 0, y = 0)
