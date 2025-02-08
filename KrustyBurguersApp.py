@@ -247,38 +247,44 @@ class App(ctk.CTk, BackEnd):
         self.frame_cadastro = ctk.CTkFrame(self, fg_color=["#FDFDFD","#0D0D0D"], width=350, height=600)
         self.frame_cadastro.pack(side = "right")
             
-        self.cadastro_label = ctk.CTkLabel(self.frame_cadastro, text="Welcome to Krusty's App", text_color= "blue", font=("Arial", 20))
-        self.cadastro_label.place(x=50, y=50)
+        self.boneco_grande = ctk.CTkImage(light_image=Image.open("BonecoGrande.png"), dark_image=Image.open("BonecoGrande.png"),size=(70, 70))
+        self.boneco_grande = ctk.CTkLabel(self.frame_cadastro, image=self.boneco_grande, text=None).place(relx = 0.5, y=70, anchor = "center")
 
-        self.email_entry = ctk.CTkEntry(self.frame_cadastro, placeholder_text="Insira seu e-mail", width=250, height= 35, font=("Arial", 14))
-        self.email_entry.place(x=40, y=150)
+        self.cadastro_label = ctk.CTkLabel(self.frame_cadastro, text="REALIZE SEU CADASTRO", text_color= "#9C00D4", font=("Sometype Mono Bold", 15))
+        self.cadastro_label.place(relx=0.5, y=125, anchor = "center")
 
-        self.email_label = ctk.CTkLabel(self.frame_cadastro, text="*Campo obrigatório", height=0,text_color="blue", font=("Arial", 10))
-        self.email_label.place(x=45, y=188)
+        self.email_entry = ctk.CTkEntry(self.frame_cadastro, placeholder_text="Insira seu e-mail", placeholder_text_color = "#9C00D4", fg_color=["#FDFDFD","#0D0D0D"], border_width = 2, border_color="#9C00D4", text_color= "#9C00D4", corner_radius= 100, width=300, height= 25, font=("Sometype Mono Bold", 14))
+        self.email_entry.place(relx=0.5, y=170, anchor = "center")
 
-        self.user_entry = ctk.CTkEntry(self.frame_cadastro, placeholder_text="Insira o nome da Empresa", width=250, height= 35, font=("Arial", 14))
-        self.user_entry.place(x=40, y=205)
+        '''self.email_label = ctk.CTkLabel(self.frame_cadastro, text="*Campo obrigatório", height=0,text_color="blue", font=("Arial", 10))
+        self.email_label.place(x=45, y=188)'''
 
-        self.user_label = ctk.CTkLabel(self.frame_cadastro, text="*Campo obrigatório", height=0,text_color="blue", font=("Arial", 10))
-        self.user_label.place(x=45, y=243)
+        self.user_entry = ctk.CTkEntry(self.frame_cadastro, placeholder_text="Insira o nome da Empresa", placeholder_text_color = "#9C00D4", fg_color=["#FDFDFD","#0D0D0D"], border_width = 2, text_color= "#9C00D4", border_color="#9C00D4", corner_radius= 100, width=300, height= 25, font=("Sometype Mono Bold", 14))
+        self.user_entry.place(relx= 0.5, y=225, anchor = "center")
 
-        self.senha_entry = ctk.CTkEntry(self.frame_cadastro, placeholder_text="Senha", width=250, height= 35, font=("Arial", 14), show = "*")
-        self.senha_entry.place(x=40, y=260)
+        '''self.user_label = ctk.CTkLabel(self.frame_cadastro, text="*Campo obrigatório", height=0,text_color="blue", font=("Arial", 10))
+        self.user_label.place(relx = 0.5, y=243)'''
 
-        self.senha_label = ctk.CTkLabel(self.frame_cadastro, text="*Campo obrigatório", height=0,text_color="blue", font=("Arial", 10))
-        self.senha_label.place(x=45, y=300)
+        self.senha_entry = ctk.CTkEntry(self.frame_cadastro, placeholder_text="Insira sua senha", placeholder_text_color = "#9C00D4", text_color= "#9C00D4", fg_color=["#FDFDFD","#0D0D0D"], border_width = 2, border_color="#9C00D4", corner_radius= 100, width=300, height= 25, font=("Sometype Mono Bold", 14), show = "*")
+        self.senha_entry.place(relx=0.5, y=280, anchor = "center")
 
-        self.c_senha_entry = ctk.CTkEntry(self.frame_cadastro, placeholder_text="Digite novamente a senha", width=250, height= 35, font=("Arial", 14), show = "*")
-        self.c_senha_entry.place(x=40, y=317)
+        '''self.senha_label = ctk.CTkLabel(self.frame_cadastro, text="*Campo obrigatório", height=0,text_color="blue", font=("Arial", 10))
+        self.senha_label.place(x=45, y=300)'''
 
-        self.termo_de_uso = ctk.CTkCheckBox(self.frame_cadastro, checkbox_width=20, checkbox_height=20, text="Aceito os termos de uso", font=("Arial", 14))
-        self.termo_de_uso.place(x=45, y=370)
+        self.c_senha_entry = ctk.CTkEntry(self.frame_cadastro, placeholder_text="Confirme sua senha", placeholder_text_color = "#9C00D4", fg_color=["#FDFDFD","#0D0D0D"], border_width = 2, border_color="#9C00D4", text_color= "#9C00D4", corner_radius= 100, width=300, height= 25, font=("Sometype Mono Bold", 14), show = "*")
+        self.c_senha_entry.place(relx=0.5, y=337, anchor = "center")
 
-        self.confirmar_button = ctk.CTkButton(self.frame_cadastro, text="Confirmar", width=200, height=30, font=("Arial", 14), command=self.cadastro_usuario)
-        self.confirmar_button.place(x=65, y= 410)  
+        self.termo_de_uso = ctk.CTkCheckBox(self.frame_cadastro, checkbox_width=14, checkbox_height=14, border_color = "#9C00D4", border_width= 2, corner_radius= 2, checkmark_color="#9C00D4", text="Aceito os Termos de Uso", text_color= "#9C00D4", fg_color=["#FDFDFD","#0D0D0D"], hover = False, font=("Sometype Mono SemiBold", 14))
+        self.termo_de_uso.place(relx=0.5, y=380, anchor = "center")
 
-        self.voltar_button = ctk.CTkButton(self.frame_cadastro, text="Voltar", width=150, height=25, font=("Arial", 14), command=back)
-        self.voltar_button.place(x=90, y= 450)    
+        self.confirmar_button = ctk.CTkImage(light_image=Image.open("BotãodeConfirmar.png"), dark_image=Image.open("BotãodeConfirmar.png"), size=(148, 33.01))
+        self.confirmar_button = ctk.CTkButton(self.frame_cadastro, image= self.confirmar_button, text=None, width=1, height=1, fg_color=["#FDFDFD","#0D0D0D"], hover = None, command=self.cadastro_usuario)
+        self.confirmar_button.place(relx=0.5, y= 450, anchor = "center")  
+
+        self.voltar_button = ctk.CTkButton(self.frame_cadastro, text="VOLTAR", text_color= "#9C00D4", fg_color=["#FDFDFD","#0D0D0D"], width=1, height=1, hover = False, font=("Sometype Mono Bold", 10.21), command=back)
+        self.voltar_button.place(relx=0.5, y= 500, anchor = "center")
+
+        self.creditos = ctk.CTkLabel(self.frame_cadastro, text="Development by ArthurVinxcius and isjustjefferson", text_color= "#9C00D4", font=("Sometype Mono Bold", 10.21)).place(relx = 0.5, y= 578.37, anchor = "center")   
 
     #tela de "esqueceu sua senha?"
     def esqueceu_senha(self):
@@ -296,52 +302,47 @@ class App(ctk.CTk, BackEnd):
         self.frame_esqueceu = ctk.CTkFrame(self, fg_color=["#FDFDFD","#0D0D0D"], width=350, height=600)
         self.frame_esqueceu.pack(side = "right")
 
-        self.esqueceu_label = ctk.CTkLabel(self.frame_esqueceu, text="Confirme que é você", text_color= "blue", font=("Arial", 20))
-        self.esqueceu_label.place(x=50, y=50)
+        self.boneco_grande = ctk.CTkImage(light_image=Image.open("BonecoGrande.png"), dark_image=Image.open("BonecoGrande.png"),size=(70, 70))
+        self.boneco_grande = ctk.CTkLabel(self.frame_esqueceu, image=self.boneco_grande, text=None).place(relx = 0.5, y=70, anchor = "center")
 
-        self.email_entry = ctk.CTkEntry(self.frame_esqueceu, placeholder_text="Insira seu e-mail", width=250, height= 35, font=("Arial", 14))
-        self.email_entry.place(x=40, y=150)
+        self.esqueceu_label = ctk.CTkLabel(self.frame_esqueceu, text="CONFIRME SUA IDENTIDADE", text_color= "#9C00D4", font=("Sometype Mono Bold", 15))
+        self.esqueceu_label.place(relx=0.5, y=125, anchor = "center")
 
-        self.email_label = ctk.CTkLabel(self.frame_esqueceu, text="*Campo obrigatório", height=0,text_color="blue", font=("Arial", 10))
-        self.email_label.place(x=45, y=188)
+        self.email_entry = ctk.CTkEntry(self.frame_esqueceu, placeholder_text="Insira seu e-mail", placeholder_text_color = "#9C00D4", fg_color=["#FDFDFD","#0D0D0D"], border_width = 2, border_color="#9C00D4", text_color= "#9C00D4", corner_radius= 100, width=300, height= 25, font=("Sometype Mono Bold", 14))
+        self.email_entry.place(relx=0.5, y=170, anchor = "center")
 
-        self.user_entry = ctk.CTkEntry(self.frame_esqueceu, placeholder_text="Insira o nome da Empresa", width=250, height= 35, font=("Arial", 14))
-        self.user_entry.place(x=40, y=205)
+        '''self.email_label = ctk.CTkLabel(self.frame_esqueceu, text="*Campo obrigatório", height=0,text_color="blue", font=("Arial", 10))
+        self.email_label.place(x=45, y=188)'''
 
-        self.user_label = ctk.CTkLabel(self.frame_esqueceu, text="*Campo obrigatório", height=0,text_color="blue", font=("Arial", 10))
-        self.user_label.place(x=45, y=243)
+        self.user_entry = ctk.CTkEntry(self.frame_esqueceu, placeholder_text="Insira o nome da Empresa", placeholder_text_color = "#9C00D4", fg_color=["#FDFDFD","#0D0D0D"], border_width = 2, text_color= "#9C00D4", border_color="#9C00D4", corner_radius= 100, width=300, height= 25, font=("Sometype Mono Bold", 14))
+        self.user_entry.place(relx= 0.5, y=225, anchor = "center")
 
-        self.senha_entry = ctk.CTkEntry(self.frame_esqueceu, placeholder_text="Nova senha", width=250, height= 35, font=("Arial", 14), show = "*")
-        self.senha_entry.place(x=40, y=260)
+        '''self.user_label = ctk.CTkLabel(self.frame_esqueceu, text="*Campo obrigatório", height=0,text_color="blue", font=("Arial", 10))
+        self.user_label.place(relx = 0.5, y=243)'''
 
-        self.senha_label = ctk.CTkLabel(self.frame_esqueceu, text="*Campo obrigatório", height=0,text_color="blue", font=("Arial", 10))
-        self.senha_label.place(x=45, y=300)
+        self.senha_entry = ctk.CTkEntry(self.frame_esqueceu, placeholder_text="Nova senha", placeholder_text_color = "#9C00D4", text_color= "#9C00D4", fg_color=["#FDFDFD","#0D0D0D"], border_width = 2, border_color="#9C00D4", corner_radius= 100, width=300, height= 25, font=("Sometype Mono Bold", 14), show = "*")
+        self.senha_entry.place(relx=0.5, y=280, anchor = "center")
 
-        self.c_senha_entry = ctk.CTkEntry(self.frame_esqueceu, placeholder_text="Confirme a nova senha", width=250, height= 35, font=("Arial", 14), show = "*")
-        self.c_senha_entry.place(x=40, y=317)
+        self.c_senha_entry = ctk.CTkEntry(self.frame_esqueceu, placeholder_text="Confirme a nova senha", placeholder_text_color = "#9C00D4", fg_color=["#FDFDFD","#0D0D0D"], border_width = 2, border_color="#9C00D4", text_color= "#9C00D4", corner_radius= 100, width=300, height= 25, font=("Sometype Mono Bold", 14), show = "*")
+        self.c_senha_entry.place(relx=0.5, y=337, anchor = "center")
 
-        self.confirmar_button = ctk.CTkButton(self.frame_esqueceu, text="Confirmar", width=200, height=30, font=("Arial", 14), command=self.troca_de_senha)
-        self.confirmar_button.place(x=65, y= 370)
+        self.confirmar_button = ctk.CTkImage(light_image=Image.open("BotãodeConfirmar.png"), dark_image=Image.open("BotãodeConfirmar.png"), size=(148, 33.01))
+        self.confirmar_button = ctk.CTkButton(self.frame_esqueceu, image= self.confirmar_button, text=None, width=1, height=1, fg_color=["#FDFDFD","#0D0D0D"], hover = None, command=self.troca_de_senha)
+        self.confirmar_button.place(relx=0.5, y= 430, anchor = "center")  
 
-        self.voltar_button = ctk.CTkButton(self.frame_esqueceu, text="Voltar", width=150, height=25, font=("Arial", 14), command = back)
-        self.voltar_button.place(x=90, y= 410)
+        self.voltar_button = ctk.CTkButton(self.frame_esqueceu, text="VOLTAR", text_color= "#9C00D4", fg_color=["#FDFDFD","#0D0D0D"], width=1, height=1, hover = False, font=("Sometype Mono Bold", 10.21), command=back)
+        self.voltar_button.place(relx=0.5, y= 480, anchor = "center")
 
+        self.creditos = ctk.CTkLabel(self.frame_esqueceu, text="Development by ArthurVinxcius and isjustjefferson", text_color= "#9C00D4", font=("Sometype Mono Bold", 10.21)).place(relx = 0.5, y= 578.37, anchor = "center")
+        
 if __name__ == "__main__":    
     app = App()
     app.mainloop()
 
-#validação de usuario
-
-#validação de senha
-
-#validação de email
-
-#Menu de configurações
-
 #DashBoard
 
-#Tela de cadastro de produtos
+#Cadastro de produtos
 
 #Impressão de arquivo em pdf
 
-#transformar em executável
+#Transformar em executável
