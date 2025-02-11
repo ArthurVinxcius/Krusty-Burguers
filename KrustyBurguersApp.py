@@ -171,7 +171,7 @@ class App(ctk.CTk, BackEnd):
         
         self.geometry("800x600")
         self.title("Krusty's App")
-        self.iconbitmap("Krusty.ico")
+        #self.iconbitmap("Krusty.ico")
         self.resizable(False, False)
         
 
@@ -238,7 +238,8 @@ class App(ctk.CTk, BackEnd):
             self.frame_cadastro.pack_forget()
             
             #Retornar para a tela de login
-            self.frame_login.pack(side = "right")   
+            self.frame_login.pack(side = "right")
+            self.limpa_entradas()
 
         #removendo login frame
         self.frame_login.pack_forget()
@@ -290,14 +291,16 @@ class App(ctk.CTk, BackEnd):
     def esqueceu_senha(self):
 
         def back():
+            
             #Remover frame de esqueceu
             self.frame_esqueceu.pack_forget()
             
             #Retornar para a tela de login
             self.frame_login.pack(side = "right")
-
+            self.limpa_entradas()
+        
         self.frame_login.pack_forget()
-
+        
         #esqueceu frame
         self.frame_esqueceu = ctk.CTkFrame(self, fg_color=["#FDFDFD","#0D0D0D"], width=350, height=600)
         self.frame_esqueceu.pack(side = "right")
@@ -334,6 +337,13 @@ class App(ctk.CTk, BackEnd):
         self.voltar_button.place(relx=0.5, y= 480, anchor = "center")
 
         self.creditos = ctk.CTkLabel(self.frame_esqueceu, text="Development by ArthurVinxcius and isjustjefferson", text_color= "#9C00D4", font=("Sometype Mono Bold", 10.21)).place(relx = 0.5, y= 578.37, anchor = "center")
+
+    def limpa_entradas(self):
+        
+        self.email_entry.delete(0, END)
+        self.user_entry.delete(0, END)
+        self.senha_entry.delete(0, END)
+        self.c_senha_entry.delete(0, END)
         
 if __name__ == "__main__":    
     app = App()
