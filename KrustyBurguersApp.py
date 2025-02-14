@@ -34,18 +34,6 @@ class BackEnd():
     
     #função de cadastro de usuários
     def cadastro_usuario(self):
-        def back():
-            #Remover frame de cadastro
-            self.frame_cadastro.pack_forget()
-            
-            #Retornar para a tela de login
-            self.frame_login.pack(side = "top", expand = True, fill = "y")
-        
-        def limpa_entry():
-            self.user_entry.delete(0, END)
-            self.email_entry.delete(0, END)
-            self.senha_entry.delete(0, END)
-            self.c_senha_entry.delete(0, END)
         
         self.nome=self.user_entry.get()
         self.email=self.email_entry.get()
@@ -77,10 +65,8 @@ class BackEnd():
                 self.conn.commit()
                 messagebox.showinfo(title="CADASTRO", message=f"Cadastro de {self.nome} concluído com sucesso!")
                 self.desconecta_banco()
-                back()
         except:
-            messagebox.showerror(title="CADASTRO", message="Não foi possível coletar seus dados.\nTente novamente.")
-            limpa_entry()    
+            messagebox.showerror(title="CADASTRO", message="Não foi possível coletar seus dados.\nTente novamente.")    
 
     #função de login
     '''def verifica_login(self):
@@ -110,17 +96,6 @@ class BackEnd():
         limpa_entry()'''
     
     def troca_de_senha(self):
-        def back():
-            #Remover frame de esqueceu
-            self.frame_esqueceu.pack_forget()
-            
-            #Retornar para a tela de login
-            self.frame_login.pack(side = "top", expand = True, fill = "y")
-        def limpa_entry():
-            self.user_entry.delete(0, END)
-            self.email_entry.delete(0, END)
-            self.senha_entry.delete(0, END)
-            self.c_senha_entry.delte(0, END)
 
         self.nome=self.user_entry.get()
         self.email=self.email_entry.get()
@@ -152,11 +127,11 @@ class BackEnd():
                 self.conn.commit()
                 messagebox.showinfo(title="TROCA DE SENHA", message="Troca de senha realizada com sucesso!")
                 self.desconecta_banco()
-                back()
+                
         except:
             messagebox.showerror(title="TROCA DE SENHA", messagebox="Não foi possível trocar a sua senha.\nTente novamente.")
             self.desconecta_banco()
-            limpa_entry()
+            
 
 class App(ctk.CTk, BackEnd):
     def __init__(self):
@@ -317,6 +292,7 @@ class App(ctk.CTk, BackEnd):
         cost = "0"
         faturamento = "0"
         lucro = "0"
+        quantidade = ['0','1','2','3']
 
         def back():
             
@@ -332,43 +308,41 @@ class App(ctk.CTk, BackEnd):
         self.frame_principal= ctk.CTkFrame(self, fg_color=["#FDFDFD","#0D0D0D"], corner_radius=0, width=800, height=600)
         self.frame_principal.pack(side = "top")
 
-        self.perfil_imag = ctk.CTkImage(light_image=Image.open("Krusty.png"), dark_image=Image.open("Krusty.png"), size=(75, 75))
-        self.perfil_imag = ctk.CTkLabel(self.frame_principal, bg_color=["#FDFDFD","#0D0D0D"], image=self.perfil_imag, text = None).place(x= 1,y=1)
-        
-        self.perfil_name = ctk.CTkLabel(self.frame_principal, bg_color= ["#FDFDFD","#0D0D0D"], text= "Krusty Burguer", text_color= "#9C00D4", font=("Sometype Mono Bold", 30)). place(x = 80, y=25)
+        self.perfil_imag = ctk.CTkImage(light_image=Image.open("logomarca.png"), dark_image=Image.open("logomarca.png"), size=(125, 125))
+        self.perfil_imag = ctk.CTkLabel(self.frame_principal, bg_color=["#FDFDFD","#0D0D0D"], image=self.perfil_imag, text = None).place(relx= 0.5,y=100, anchor = "center")
 
-        self.custo = ctk.CTkLabel(self.frame_principal, bg_color= ["#FDFDFD","#0D0D0D"], text= "Custo:", text_color= "#9C00D4", font=("Sometype Mono Bold", 20)). place(x = 310, y=10)
-        self.custo_result = ctk.CTkLabel(self.frame_principal, bg_color= ["#FDFDFD","#0D0D0D"], text= cost, text_color= "#9C00D4", font=("Sometype Mono Bold", 20)). place(x = 310, y=30)
+        self.custo = ctk.CTkLabel(self.frame_principal, bg_color= ["#FDFDFD","#0D0D0D"], text= "CUSTO:", text_color= "#9C00D4", font=("Sometype Mono Bold", 20)). place(relx = 0.27, y=550, anchor = "center")
+        self.custo_result = ctk.CTkLabel(self.frame_principal, bg_color= ["#FDFDFD","#0D0D0D"], text= cost, text_color= "#9C00D4", font=("Sometype Mono Bold", 20)). place(relx = 0.27, y=575, anchor = "center")
 
-        self.faturamento= ctk.CTkLabel(self.frame_principal, bg_color= ["#FDFDFD","#0D0D0D"], text= "faturamento:", text_color= "#9C00D4", font=("Sometype Mono Bold", 20)). place(x = 465, y=10)
-        self.faturamento_result= ctk.CTkLabel(self.frame_principal, bg_color= ["#FDFDFD","#0D0D0D"], text= faturamento, text_color= "#9C00D4", font=("Sometype Mono Bold", 20)). place(x = 465, y=30)
+        self.faturamento= ctk.CTkLabel(self.frame_principal, bg_color= ["#FDFDFD","#0D0D0D"], text= "fATURAMENTO:", text_color= "#9C00D4", font=("Sometype Mono Bold", 20)). place(relx = 0.5, y=550, anchor = "center")
+        self.faturamento_result= ctk.CTkLabel(self.frame_principal, bg_color= ["#FDFDFD","#0D0D0D"], text= faturamento, text_color= "#9C00D4", font=("Sometype Mono Bold", 20)). place(relx = 0.5, y=575, anchor = "center")
 
-        self.lucro = ctk.CTkLabel(self.frame_principal, bg_color= ["#FDFDFD","#0D0D0D"], text= "lucro:", text_color= "#9C00D4", font=("Sometype Mono Bold", 20)). place(x = 690, y=10)
-        self.lucro_result = ctk.CTkLabel(self.frame_principal, bg_color= ["#FDFDFD","#0D0D0D"], text= lucro, text_color= "#9C00D4", font=("Sometype Mono Bold", 20)). place(x = 690, y=30)
+        self.lucro = ctk.CTkLabel(self.frame_principal, bg_color= ["#FDFDFD","#0D0D0D"], text= "lUCRO:", text_color= "#9C00D4", font=("Sometype Mono Bold", 20)). place(relx = 0.73, y=550, anchor = "center")
+        self.lucro_result = ctk.CTkLabel(self.frame_principal, bg_color= ["#FDFDFD","#0D0D0D"], text= lucro, text_color= "#9C00D4", font=("Sometype Mono Bold", 20)). place(relx = 0.73, y=575, anchor = "center")
 
-        self.cad_produto = ctk.CTkButton(self.frame_principal, bg_color= ["#FDFDFD","#0D0D0D"], fg_color= ["#FDFDFD","#0D0D0D"], text= "CADASTRAR PRODUTO", text_color= "#9C00D4", font=("Sometype Mono Bold", 20), hover= None).place(x = 10, y = 150)
+        self.cad_produto = ctk.CTkButton(self.frame_principal, bg_color= ["#FDFDFD","#0D0D0D"], fg_color= ["#FDFDFD","#0D0D0D"], text= "CADASTRAR PRODUTO", text_color= "#9C00D4", font=("Sometype Mono Bold", 13), width= 1, height= 1, hover= None).place(relx = 0.5, y = 485, anchor = "center")
 
-        self.map_financeiro = ctk.CTkButton(self.frame_principal, bg_color= ["#FDFDFD","#0D0D0D"], fg_color= ["#FDFDFD","#0D0D0D"], text= "GEST. FINANCEIRA", text_color= "#9C00D4", hover= None, font=("Sometype Mono Bold", 20)).place(x = 10, y = 200)
+        self.confirmar_compra = ctk.CTkImage(light_image=Image.open("BotãodeConfirmar.png"), dark_image=Image.open("BotãodeConfirmar.png"), size=(148, 33.01))
+        self.confirmar_compra = ctk.CTkButton(self.frame_principal, image= self.confirmar_compra, text=None, width=1, height=1, fg_color=["#FDFDFD","#0D0D0D"], hover = None).place(relx = 0.5, y = 440, anchor = "center")
 
-        self.pdf_export = ctk.CTkButton(self.frame_principal, bg_color= ["#FDFDFD","#0D0D0D"], fg_color= ["#FDFDFD","#0D0D0D"], text= "PDF", text_color= "#9C00D4", hover= None, font=("Sometype Mono Bold", 20)).place(x = 180, y = 575)
+        self.voltar_button = ctk.CTkButton(self.frame_principal, text="VOLTAR", text_color= "#9C00D4", fg_color=["#FDFDFD","#0D0D0D"], width=1, height=1, hover = False, font=("Sometype Mono Bold", 15), command=back)
+        self.voltar_button.place(x=10, y= 10)
 
-        def hamburgui(value):
-            print("segmented button clicked:", value) #apenas para testar se estao funcionando as combobox
+        self.nome_hamburguer = ctk.CTkLabel(self.frame_principal, bg_color= ["#FDFDFD","#0D0D0D"], text= "HAMBÚRGUER:", text_color= "#9C00D4", font=("Sometype Mono Bold", 20)). place(relx = 0.27, y=225, anchor = "center")
+        self.hamburguer= ctk.CTkComboBox(self.frame_principal, values=["Krusty-Catupiry", "Krusty-D_Cheddar", "Krusty-tchola"],border_color= "#9C00D4", button_color= "#9C00D4",fg_color= ["#FDFDFD","#0D0D0D"], bg_color= ["#FDFDFD","#0D0D0D"]).place(relx = 0.5, y = 225, anchor = "center")
+        self.qtd_hamburguer= ctk.CTkComboBox(self.frame_principal, values=quantidade,border_color= "#9C00D4", button_color= "#9C00D4",fg_color= ["#FDFDFD","#0D0D0D"], bg_color= ["#FDFDFD","#0D0D0D"]).place(relx = 0.73, y = 225, anchor = "center")
 
-        self.hamburguer= ctk.CTkComboBox(self.frame_principal, values=["Krusty-Catupiry", "Krusty-D_Cheddar", "Krusty-tchola"],border_color= "#9C00D4", button_color= "#9C00D4",fg_color= ["#FDFDFD","#0D0D0D"], bg_color= ["#FDFDFD","#0D0D0D"], command=hamburgui).place(x = 300, y = 150)
-        self.qtd_hamburguer= ctk.CTkComboBox(self.frame_principal, values=["1", "2", "3"],border_color= "#9C00D4", button_color= "#9C00D4",fg_color= ["#FDFDFD","#0D0D0D"], bg_color= ["#FDFDFD","#0D0D0D"], command=hamburgui).place(x = 450, y = 150)
+        self.nome_bebida = ctk.CTkLabel(self.frame_principal, bg_color= ["#FDFDFD","#0D0D0D"], text= "BEBIDAS:", text_color= "#9C00D4", font=("Sometype Mono Bold", 20)). place(relx = 0.27, y=275, anchor = "center")
+        self.bebida= ctk.CTkComboBox(self.frame_principal, values=["Coca", "Fanta", "Pepsi"],border_color= "#9C00D4", button_color= "#9C00D4",fg_color= ["#FDFDFD","#0D0D0D"], bg_color= ["#FDFDFD","#0D0D0D"]).place(relx = 0.5, y = 275,anchor = "center")
+        self.qtd_bebida= ctk.CTkComboBox(self.frame_principal, values=quantidade,border_color= "#9C00D4", button_color= "#9C00D4",fg_color= ["#FDFDFD","#0D0D0D"], bg_color= ["#FDFDFD","#0D0D0D"]).place(relx = 0.73, y = 275, anchor = "center")
 
-        self.bebida= ctk.CTkComboBox(self.frame_principal, values=["Coca", "Fanta", "Pepsi"],border_color= "#9C00D4", button_color= "#9C00D4",fg_color= ["#FDFDFD","#0D0D0D"], bg_color= ["#FDFDFD","#0D0D0D"], command=hamburgui).place(x = 300, y = 200)
-        self.qtd_bebida= ctk.CTkComboBox(self.frame_principal, values=["1", "2", "3"],border_color= "#9C00D4", button_color= "#9C00D4",fg_color= ["#FDFDFD","#0D0D0D"], bg_color= ["#FDFDFD","#0D0D0D"], command=hamburgui).place(x = 450, y = 200)
+        self.nome_sobremesa = ctk.CTkLabel(self.frame_principal, bg_color= ["#FDFDFD","#0D0D0D"], text= "SOBREMESAS:", text_color= "#9C00D4", font=("Sometype Mono Bold", 20)). place(relx = 0.27, y=325, anchor ="center")
+        self.sobremesa= ctk.CTkComboBox(self.frame_principal, values=["Picolé", "Sorvete", "Brownie"],border_color= "#9C00D4", button_color= "#9C00D4",fg_color= ["#FDFDFD","#0D0D0D"], bg_color= ["#FDFDFD","#0D0D0D"]).place(relx = 0.5, y = 325, anchor = "center")
+        self.qtd_sobremesa= ctk.CTkComboBox(self.frame_principal, values=quantidade,border_color= "#9C00D4", button_color= "#9C00D4",fg_color= ["#FDFDFD","#0D0D0D"], bg_color= ["#FDFDFD","#0D0D0D"]).place(relx = 0.73, y = 325, anchor = "center")
 
-        self.sobremesa= ctk.CTkComboBox(self.frame_principal, values=["Picolé", "Sorvete", "Brownie"],border_color= "#9C00D4", button_color= "#9C00D4",fg_color= ["#FDFDFD","#0D0D0D"], bg_color= ["#FDFDFD","#0D0D0D"], command=hamburgui).place(x = 300, y = 250)
-        self.qtd_sobremesa= ctk.CTkComboBox(self.frame_principal, values=["1", "2", "3"],border_color= "#9C00D4", button_color= "#9C00D4",fg_color= ["#FDFDFD","#0D0D0D"], bg_color= ["#FDFDFD","#0D0D0D"], command=hamburgui).place(x = 450, y = 250)
-
-        self.fritas= ctk.CTkComboBox(self.frame_principal, values=["c/Bacon", "c/Cheddar", "c/ketchup"],border_color= "#9C00D4", button_color= "#9C00D4",fg_color= ["#FDFDFD","#0D0D0D"], bg_color= ["#FDFDFD","#0D0D0D"], command=hamburgui).place(x = 300, y = 300)
-        self.qtd_fritas= ctk.CTkComboBox(self.frame_principal, values=["1", "2", "3"],border_color= "#9C00D4", button_color= "#9C00D4",fg_color= ["#FDFDFD","#0D0D0D"], bg_color= ["#FDFDFD","#0D0D0D"], command=hamburgui).place(x = 450, y = 300)
-
-        self.voltar_button = ctk.CTkButton(self.frame_principal, text="VOLTAR", text_color= "#9C00D4", fg_color=["#FDFDFD","#0D0D0D"], width=1, height=1, hover = False, font=("Sometype Mono Bold", 10.21), command=back)
-        self.voltar_button.place(relx=0.5, y= 480, anchor = "center")
+        self.nome_fritas = ctk.CTkLabel(self.frame_principal, bg_color= ["#FDFDFD","#0D0D0D"], text= "FRITAS:", text_color= "#9C00D4", font=("Sometype Mono Bold", 20)). place(relx = 0.27, y=375, anchor = "center")
+        self.fritas= ctk.CTkComboBox(self.frame_principal, values=["c/Bacon", "c/Cheddar", "c/ketchup"],border_color= "#9C00D4", button_color= "#9C00D4",fg_color= ["#FDFDFD","#0D0D0D"], bg_color= ["#FDFDFD","#0D0D0D"]).place(relx= 0.5, y = 375, anchor = "center")
+        self.qtd_fritas= ctk.CTkComboBox(self.frame_principal, values=quantidade,border_color= "#9C00D4", button_color= "#9C00D4",fg_color= ["#FDFDFD","#0D0D0D"], bg_color= ["#FDFDFD","#0D0D0D"]).place(relx = 0.73, y = 375, anchor = "center")
 
     def limpa_entradas(self):
         
