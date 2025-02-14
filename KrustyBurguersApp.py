@@ -28,7 +28,10 @@ class BackEnd():
         self.desconecta_banco()
    
     def cadastro_usuario(self):
-        
+        def back():
+            self.frame_cadastro.pack_forget()
+            self.frame_login.pack(side = "right")
+
         self.nome=self.user_entry.get()
         self.email=self.email_entry.get()
         self.senha=self.senha_entry.get()
@@ -40,7 +43,6 @@ class BackEnd():
         INSERT INTO Usuários (Nome, Email, Senha, Confirma_Senha) VALUES (?,?,?,?)
         """, (self.nome, self.email, self.senha, self.confirma_senha))
 
-        
         try:
             if (self.nome=="" or self.email=="" or self.senha=="" or self.confirma_senha==""):
                 messagebox.showerror(title="CADASTRO", message="Nem todos os campos foram preenchidos.")
@@ -52,6 +54,7 @@ class BackEnd():
                 self.conn.commit()
                 messagebox.showinfo(title="CADASTRO", message=f"Cadastro de {self.nome} concluído com sucesso!")
                 self.desconecta_banco()
+                back()
         except:
             messagebox.showerror(title="CADASTRO", message="Não foi possível coletar seus dados.\nTente novamente.")    
    
@@ -75,17 +78,17 @@ class BackEnd():
             if (self.nome in self.verifica_dados and self.senha in self.verifica_dados):
                 self.main_frame()
                 self.desconecta_banco()
-            else:
-                messagebox.showerror(title="LOGIN", message="Usuário ou senha incorretos.")
-                self.desconecta_banco()
         except:
             messagebox.showerror(title="LOGIN", message="Usuário ou senha incorretos.")
             self.desconecta_banco()
-        
+
         limpa_entry()
    
     def troca_de_senha(self):
-
+        def back():
+            self.frame_cadastro.pack_forget()
+            self.frame_login.pack(side = "right")
+            
         self.nome=self.user_entry.get()
         self.email=self.email_entry.get()
         self.senha=self.senha_entry.get()
@@ -116,7 +119,7 @@ class BackEnd():
                 self.conn.commit()
                 messagebox.showinfo(title="TROCA DE SENHA", message="Troca de senha realizada com sucesso!")
                 self.desconecta_banco()
-                
+                back()    
         except:
             messagebox.showerror(title="TROCA DE SENHA", messagebox="Não foi possível trocar a sua senha.\nTente novamente.")
             self.desconecta_banco()
