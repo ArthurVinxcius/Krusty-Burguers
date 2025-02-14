@@ -86,7 +86,7 @@ class BackEnd():
    
     def troca_de_senha(self):
         def back():
-            self.frame_cadastro.pack_forget()
+            self.frame_esqueceu.pack_forget()
             self.frame_login.pack(side = "right")
             
         self.nome=self.user_entry.get()
